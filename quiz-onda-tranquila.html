@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Neurológico Infantil</title>
+
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1215703263577563');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1215703263577563&ev=PageView&noscript=1"
+/></noscript>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFDF9;
+    --deep: #1C1A17;
+    --brown: #3D2E1E;
+    --accent: #C4622D;
+    --accent-light: #E8845A;
+    --muted: #8A7968;
+    --border: #E8E0D4;
+    --progress-bg: #EDE6DA;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .topbar {
+    width: 100%;
+    background: var(--brown);
+    color: #F5ECD7;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .header {
+    width: 100%;
+    max-width: 680px;
+    padding: 32px 24px 0;
+    text-align: center;
+  }
+  .header .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--brown);
+    margin-bottom: 12px;
+  }
+  .header p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto 24px;
+  }
+  .progress-wrap {
+    width: 100%;
+    max-width: 680px;
+    padding: 0 24px;
+    margin-bottom: 8px;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--progress-bg);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 10px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .card-wrap {
+    width: 100%;
+    max-width: 680px;
+    padding: 16px 24px 40px;
+  }
+  .card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 4px 32px rgba(60,40,20,0.07);
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top:0; left:0; right:0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  }
+  .question-num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px,4vw,24px);
+    font-weight: 600;
+    color: var(--brown);
+    line-height: 1.35;
+    margin-bottom: 28px;
+  }
+  .question-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: -18px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .options { display:flex; flex-direction:column; gap:12px; }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+    text-align: left;
+    width: 100%;
+  }
+  .option:hover {
+    border-color: var(--accent-light);
+    background: #FFF8F4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(196,98,45,0.1);
+  }
+  .option.selected { border-color: var(--accent); background: #FFF3EC; }
+  .option-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--progress-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .option.selected .option-icon { background: var(--accent); }
+  .option-text { flex:1; }
+  .option-label { font-size:15px; font-weight:500; color:var(--deep); line-height:1.4; }
+  .option-desc { font-size:13px; color:var(--muted); margin-top:2px; }
+  .option-check {
+    width:22px; height:22px; border-radius:50%;
+    border:2px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; transition:all 0.2s;
+  }
+  .option.selected .option-check { background:var(--accent); border-color:var(--accent); color:white; }
+  .nav { display:flex; justify-content:space-between; align-items:center; margin-top:28px; }
+  .btn-back {
+    background:none; border:none; color:var(--muted);
+    font-size:14px; font-family:'DM Sans',sans-serif;
+    cursor:pointer; padding:8px 0;
+    display:flex; align-items:center; gap:6px; transition:color 0.2s;
+  }
+  .btn-back:hover { color:var(--brown); }
+  .btn-back.hidden { visibility:hidden; }
+  .btn-next {
+    background:var(--accent); color:white; border:none;
+    border-radius:12px; padding:14px 32px;
+    font-size:15px; font-weight:600;
+    font-family:'DM Sans',sans-serif; cursor:pointer;
+    transition:all 0.2s; display:flex; align-items:center; gap:8px;
+    box-shadow:0 4px 16px rgba(196,98,45,0.3);
+  }
+  .btn-next:hover { background:#B5541F; transform:translateY(-1px); }
+  .btn-next:disabled { background:#D4C8BC; box-shadow:none; cursor:not-allowed; transform:none; }
+  .slide { display:none; animation:slideIn 0.35s cubic-bezier(0.4,0,0.2,1); }
+  .slide.active { display:block; }
+  @keyframes slideIn { from{opacity:0;transform:translateX(24px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes slideInLeft { from{opacity:0;transform:translateX(-24px)} to{opacity:1;transform:translateX(0)} }
+  .slide.back-anim { animation:slideInLeft 0.35s cubic-bezier(0.4,0,0.2,1); }
+
+  /* LOADING */
+  #loading-screen { display:none; text-align:center; padding:20px 0; }
+  .analyzing-title { font-family:'Playfair Display',serif; font-size:22px; color:var(--brown); margin-bottom:8px; }
+  .analyzing-sub { font-size:14px; color:var(--muted); margin-bottom:32px; }
+  .loader-steps { display:flex; flex-direction:column; gap:14px; text-align:left; max-width:320px; margin:0 auto 32px; }
+  .loader-step { display:flex; align-items:center; gap:12px; font-size:14px; color:var(--muted); opacity:0; transition:opacity 0.4s; }
+  .loader-step.visible { opacity:1; }
+  .step-dot {
+    width:20px; height:20px; border-radius:50%;
+    background:var(--progress-bg); border:2px solid var(--border);
+    flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    font-size:11px; transition:all 0.3s;
+  }
+  .loader-step.done .step-dot { background:#2D6A4F; border-color:#2D6A4F; color:white; }
+  .loader-bar-wrap { background:var(--progress-bg); height:8px; border-radius:10px; overflow:hidden; max-width:320px; margin:0 auto; }
+  .loader-bar-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-light)); border-radius:10px; width:0%; transition:width 0.6s ease; }
+
+  /* RESULT */
+  #result-screen { display:none; animation:slideIn 0.4s ease; }
+  .result-header { text-align:center; margin-bottom:28px; }
+  .result-badge {
+    display:inline-block; background:#FFF3EC; color:var(--accent);
+    font-size:12px; font-weight:700; letter-spacing:0.08em;
+    text-transform:uppercase; padding:6px 16px; border-radius:20px;
+    border:1px solid #F5C4A8; margin-bottom:16px;
+  }
+  .result-title { font-family:'Playfair Display',serif; font-size:clamp(20px,5vw,28px); color:var(--brown); line-height:1.3; margin-bottom:12px; }
+  .result-sub { font-size:14px; color:var(--muted); line-height:1.6; }
+  .score-box {
+    background:linear-gradient(135deg,#FFF8F3,#FFF0E6);
+    border:1px solid #F5C4A8; border-radius:16px;
+    padding:24px; margin-bottom:24px; text-align:center;
+  }
+  .score-label { font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+  .score-number { font-family:'Playfair Display',serif; font-size:56px; font-weight:700; color:var(--accent); line-height:1; margin-bottom:4px; }
+  .score-desc { font-size:13px; color:var(--muted); }
+  .score-meter { display:flex; gap:4px; margin:16px 0 8px; justify-content:center; }
+  .meter-seg { height:10px; flex:1; border-radius:5px; background:var(--progress-bg); max-width:40px; }
+  .meter-seg.active-low { background:#F5A623; }
+  .meter-seg.active-mid { background:var(--accent-light); }
+  .meter-seg.active-high { background:var(--accent); }
+  .symptoms-box { background:white; border:1px solid var(--border); border-radius:16px; padding:20px 24px; margin-bottom:20px; }
+  .symptoms-title { font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+  .symptom-item { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); font-size:14px; color:var(--deep); line-height:1.4; }
+  .symptom-item:last-child { border-bottom:none; }
+  .symptom-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:5px; }
+
+  /* DOCTOR CARD — result page */
+  .doctor-card {
+    display:flex; gap:16px; align-items:flex-start;
+    background:#F5F0E8; border-radius:16px;
+    padding:20px; margin-bottom:24px;
+  }
+  .doctor-photo {
+    width:72px; height:72px; border-radius:50%;
+    object-fit:cover; object-position:center top;
+    flex-shrink:0; border:3px solid var(--accent);
+  }
+  .doctor-info { flex:1; }
+  .doctor-name { font-weight:700; font-size:15px; color:var(--brown); margin-bottom:2px; }
+  .doctor-role { font-size:12px; color:var(--accent); font-weight:600; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:10px; }
+  .doctor-quote { font-size:14px; color:var(--deep); line-height:1.6; font-style:italic; }
+
+  .urgency {
+    background:#FFF8EC; border:1px solid #F5DFA8; border-radius:10px;
+    padding:12px 16px; font-size:13px; color:#8A6820;
+    text-align:center; margin-bottom:20px;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .cta-wrap { text-align:center; }
+  .btn-cta {
+    display:block; width:100%;
+    background:linear-gradient(135deg,var(--accent),#D4703A);
+    color:white; border:none; border-radius:14px;
+    padding:18px 32px; font-size:16px; font-weight:700;
+    font-family:'DM Sans',sans-serif; cursor:pointer;
+    transition:all 0.2s; box-shadow:0 6px 24px rgba(196,98,45,0.35);
+    text-decoration:none; margin-bottom:12px; line-height:1.3;
+  }
+  .btn-cta:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(196,98,45,0.45); }
+  .cta-note { font-size:12px; color:var(--muted); display:flex; align-items:center; justify-content:center; gap:6px; }
+
+  .footer {
+    width:100%; max-width:680px;
+    padding:8px 24px 32px; text-align:center;
+    font-size:11px; color:var(--muted); line-height:1.6;
+  }
+
+  @media(max-width:500px){
+    .card { padding:28px 20px; }
+    .option { padding:14px 16px; }
+    .doctor-card { flex-direction:column; align-items:center; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">🔒 Test neurológico gratuito · Dra. Isabel Martínez · Neuropediatra</div>
+
+<div class="header">
+  <div class="badge">Test Científico · 2 minutos</div>
+  <h1>¿El cerebro de tu hijo tiene dificultad para regularse?</h1>
+  <p>Responde 5 preguntas y descubre si lo que le pasa a tu hijo tiene una causa neurológica — y qué puedes hacer hoy.</p>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span id="progress-text">Pregunta 1 de 5</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+</div>
+
+<div class="card-wrap"><div class="card">
+
+  <div id="quiz-section">
+
+    <div class="slide active" id="q1">
+      <div class="question-num">Pregunta 1 de 5</div>
+      <div class="question-text">¿Tu hijo se queja de dolor de estómago o náuseas antes de ir al colegio?</div>
+      <div class="question-sub">Puede ser frecuente o solo en días de mayor estrés</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this,'q1',3)"><div class="option-icon">😰</div><div class="option-text"><div class="option-label">Sí, casi todas las mañanas</div><div class="option-desc">Es parte de nuestra rutina diaria</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q1',2)"><div class="option-icon">😟</div><div class="option-text"><div class="option-label">Sí, varias veces por semana</div><div class="option-desc">Especialmente los lunes o días difíciles</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q1',1)"><div class="option-icon">🤔</div><div class="option-text"><div class="option-label">Ocasionalmente</div><div class="option-desc">De vez en cuando, no siempre</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q1',0)"><div class="option-icon">😊</div><div class="option-text"><div class="option-label">No, esto no le pasa</div></div><div class="option-check">✓</div></button>
+      </div>
+    </div>
+
+    <div class="slide" id="q2">
+      <div class="question-num">Pregunta 2 de 5</div>
+      <div class="question-text">¿Tiene dificultad para dormir solo o se despierta asustado durante la noche?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this,'q2',3)"><div class="option-icon">😴</div><div class="option-text"><div class="option-label">No puede dormir solo, viene a nuestra cama</div><div class="option-desc">Cada noche es una batalla</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q2',2)"><div class="option-icon">😨</div><div class="option-text"><div class="option-label">Se despierta con pesadillas frecuentemente</div><div class="option-desc">Varias veces por semana</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q2',1)"><div class="option-icon">😐</div><div class="option-text"><div class="option-label">Le cuesta dormirse pero luego duerme</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q2',0)"><div class="option-icon">😌</div><div class="option-text"><div class="option-label">Duerme bien y sin problemas</div></div><div class="option-check">✓</div></button>
+      </div>
+    </div>
+
+    <div class="slide" id="q3">
+      <div class="question-num">Pregunta 3 de 5</div>
+      <div class="question-text">¿Tiene reacciones explosivas o rabietas que parecen desproporcionadas para la situación?</div>
+      <div class="question-sub">Por ejemplo, llorar o gritar ante un pequeño "no" o un cambio de planes</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this,'q3',3)"><div class="option-icon">💥</div><div class="option-text"><div class="option-label">Sí, explota de la nada y no puede calmarse</div><div class="option-desc">La reacción dura mucho tiempo</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q3',2)"><div class="option-icon">😤</div><div class="option-text"><div class="option-label">Frecuentemente, la mayoría de los días</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q3',1)"><div class="option-icon">😒</div><div class="option-text"><div class="option-label">A veces, cuando está cansado o estresado</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q3',0)"><div class="option-icon">😊</div><div class="option-text"><div class="option-label">No, generalmente maneja bien la frustración</div></div><div class="option-check">✓</div></button>
+      </div>
+    </div>
+
+    <div class="slide" id="q4">
+      <div class="question-num">Pregunta 4 de 5</div>
+      <div class="question-text">¿Muestra señales físicas de tensión como morderse las uñas, masticar la ropa o frotarse las manos?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this,'q4',3)"><div class="option-icon">🤜</div><div class="option-text"><div class="option-label">Sí, constantemente y sin darse cuenta</div><div class="option-desc">Es un hábito que no puede controlar</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q4',2)"><div class="option-icon">😬</div><div class="option-text"><div class="option-label">Sí, especialmente en momentos de estrés</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q4',1)"><div class="option-icon">🤔</div><div class="option-text"><div class="option-label">Ocasionalmente</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q4',0)"><div class="option-icon">✋</div><div class="option-text"><div class="option-label">No, no tiene estos hábitos</div></div><div class="option-check">✓</div></button>
+      </div>
+    </div>
+
+    <div class="slide" id="q5">
+      <div class="question-num">Pregunta 5 de 5</div>
+      <div class="question-text">¿Le cuesta integrarse con otros niños, se queda al margen en fiestas o actividades grupales?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this,'q5',3)"><div class="option-icon">😶</div><div class="option-text"><div class="option-label">Sí, prefiere quedarse solo o pegado a mí</div><div class="option-desc">Las reuniones sociales son muy difíciles</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q5',2)"><div class="option-icon">😕</div><div class="option-text"><div class="option-label">Le cuesta mucho al principio, necesita tiempo</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q5',1)"><div class="option-icon">🙂</div><div class="option-text"><div class="option-label">Un poco tímido, pero se integra bien</div></div><div class="option-check">✓</div></button>
+        <button class="option" onclick="selectOption(this,'q5',0)"><div class="option-icon">😄</div><div class="option-text"><div class="option-label">No, es sociable y se adapta fácil</div></div><div class="option-check">✓</div></button>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn-back hidden" id="btn-back" onclick="goBack()">← Anterior</button>
+      <button class="btn-next" id="btn-next" onclick="goNext()" disabled>Continuar →</button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loading-screen">
+    <div class="analyzing-title">Analizando las respuestas…</div>
+    <div class="analyzing-sub">Estamos evaluando el perfil neurológico de tu hijo</div>
+    <div class="loader-steps">
+      <div class="loader-step" id="step1"><div class="step-dot">1</div><span>Evaluando señales de regulación del sistema nervioso</span></div>
+      <div class="loader-step" id="step2"><div class="step-dot">2</div><span>Cruzando síntomas con indicadores de déficit de GABA</span></div>
+      <div class="loader-step" id="step3"><div class="step-dot">3</div><span>Calculando nivel de afectación neurológica</span></div>
+      <div class="loader-step" id="step4"><div class="step-dot">4</div><span>Generando recomendaciones personalizadas</span></div>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar-fill" id="loader-bar"></div></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result-screen">
+    <div class="result-header">
+      <div class="result-badge" id="result-badge">Resultado del análisis</div>
+      <div class="result-title" id="result-title"></div>
+      <div class="result-sub" id="result-sub"></div>
+    </div>
+
+    <div class="score-box">
+      <div class="score-label">Índice de afectación neurológica</div>
+      <div class="score-number" id="score-number">0%</div>
+      <div class="score-desc" id="score-desc"></div>
+      <div class="score-meter" id="score-meter"></div>
+    </div>
+
+    <div class="symptoms-box" id="symptoms-box">
+      <div class="symptoms-title">Señales detectadas en tu hijo</div>
+      <div id="symptoms-list"></div>
+    </div>
+
+    <!-- DOCTOR CARD — aqui na tela de resultado -->
+    <div class="doctor-card">
+      <img
+        src="data:image/webp;base64,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"
+        alt="Dra. Isabel Martínez"
+        class="doctor-photo"
+      >
+      <div class="doctor-info">
+        <div class="doctor-name">Dra. Isabel Martínez</div>
+        <div class="doctor-role">Neuropediatra · Madre de Lucía</div>
+        <div class="doctor-quote">"Muchos padres esperan hasta que los síntomas son severos. Lo que aprendí es que cuanto antes se repara el freno biológico, más rápido y completo es el resultado."</div>
+      </div>
+    </div>
+
+    <div class="urgency">⏱️ <strong>Importante:</strong> Sin tratamiento de la causa raíz, estos síntomas tienden a intensificarse con la edad.</div>
+
+    <div class="cta-wrap">
+      <a href="/vsl" class="btn-cta" id="cta-btn">Ver cómo reparar esto →</a>
+      <div class="cta-note">🔒 Presentación gratuita · Sin compromiso</div>
+    </div>
+  </div>
+
+</div></div>
+
+<div class="footer">
+  Este test es informativo y no reemplaza el diagnóstico médico profesional.<br>
+  © La Onda Tranquila · Todos los derechos reservados
+</div>
+
+<script>
+  const answers = {};
+  let currentQ = 1;
+  const totalQ = 5;
+  const symptoms = {
+    q1:{label:"Síntomas físicos de ansiedad (dolor de estómago, náuseas)",threshold:1},
+    q2:{label:"Dificultad para regular el sueño y descanso nocturno",threshold:1},
+    q3:{label:"Dificultad para manejar la frustración y el estrés",threshold:1},
+    q4:{label:"Comportamientos de descarga tensional (uñas, ropa, objetos)",threshold:1},
+    q5:{label:"Inhibición social y dificultad para conectar con otros niños",threshold:1},
+  };
+
+  function selectOption(el, qId, value) {
+    el.parentElement.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[qId] = value;
+    document.getElementById('btn-next').disabled = false;
+  }
+
+  function goNext() {
+    if (currentQ < totalQ) {
+      document.getElementById('q'+currentQ).classList.remove('active');
+      currentQ++;
+      const next = document.getElementById('q'+currentQ);
+      next.classList.remove('back-anim');
+      next.classList.add('active');
+      updateProgress();
+      document.getElementById('btn-next').disabled = !answers['q'+currentQ];
+      document.getElementById('btn-back').classList.remove('hidden');
+    } else { showLoading(); }
+  }
+
+  function goBack() {
+    if (currentQ > 1) {
+      document.getElementById('q'+currentQ).classList.remove('active');
+      currentQ--;
+      const prev = document.getElementById('q'+currentQ);
+      prev.classList.add('back-anim','active');
+      updateProgress();
+      document.getElementById('btn-next').disabled = false;
+      if(currentQ===1) document.getElementById('btn-back').classList.add('hidden');
+    }
+  }
+
+  function updateProgress() {
+    const pct = Math.round(((currentQ-1)/totalQ)*100);
+    document.getElementById('progress-fill').style.width = pct+'%';
+    document.getElementById('progress-text').textContent = 'Pregunta '+currentQ+' de '+totalQ;
+    document.getElementById('progress-pct').textContent = pct+'%';
+  }
+
+  function showLoading() {
+    document.getElementById('quiz-section').style.display='none';
+    document.getElementById('loading-screen').style.display='block';
+    document.getElementById('progress-fill').style.width='90%';
+    document.getElementById('progress-text').textContent='Analizando resultados...';
+    document.getElementById('progress-pct').textContent='90%';
+    const steps=['step1','step2','step3','step4'];
+    const bar=document.getElementById('loader-bar');
+    let i=0;
+    function nextStep(){
+      if(i<steps.length){
+        const s=document.getElementById(steps[i]);
+        s.classList.add('visible');
+        setTimeout(()=>{
+          s.classList.add('done');
+          s.querySelector('.step-dot').textContent='✓';
+          bar.style.width=((i+1)/steps.length*100)+'%';
+          i++; setTimeout(nextStep,600);
+        },700);
+      } else { setTimeout(showResult,500); }
+    }
+    setTimeout(nextStep,400);
+  }
+
+  function showResult() {
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('result-screen').style.display='block';
+    document.getElementById('progress-fill').style.width='100%';
+    document.getElementById('progress-text').textContent='Análisis completado';
+    document.getElementById('progress-pct').textContent='100%';
+
+    const total = Object.values(answers).reduce((a,b)=>a+b,0);
+    const pct = Math.round((total/(totalQ*3))*100);
+    animateNumber('score-number',pct,'%');
+
+    const meter=document.getElementById('score-meter');
+    const segs=10, activeSeg=Math.round(pct/100*segs);
+    for(let i=0;i<segs;i++){
+      const s=document.createElement('div'); s.className='meter-seg';
+      if(i<activeSeg){ if(i<3)s.classList.add('active-low'); else if(i<7)s.classList.add('active-mid'); else s.classList.add('active-high'); }
+      meter.appendChild(s);
+    }
+
+    let badge,title,sub,desc,cta;
+    if(pct>=70){
+      badge='⚠️ Nivel Alto de Afectación';
+      title='Tu hijo presenta señales fuertes de déficit de regulación neurológica';
+      sub='Los síntomas que describes indican que el sistema de calma de su cerebro está trabajando en sobrecarga. No es un problema de comportamiento ni de crianza — tiene una causa biológica real.';
+      desc='Alta necesidad de intervención desde la raíz';
+      cta='🔍 Ver la causa raíz y el método de reparación →';
+    } else if(pct>=40){
+      badge='⚡ Nivel Moderado de Afectación';
+      title='Tu hijo muestra señales moderadas de dificultad en la regulación cerebral';
+      sub='Algunos de los síntomas que describes son señales de que el sistema nervioso de tu hijo está bajo presión. Actuar ahora puede cambiar completamente su trayectoria.';
+      desc='Señales presentes que requieren atención';
+      cta='▶️ Ver cómo reparar esto antes de que avance →';
+    } else {
+      badge='✅ Señales Leves Detectadas';
+      title='Tu hijo muestra algunas señales tempranas de tensión en su sistema nervioso';
+      sub='Aunque los síntomas son leves, estos patrones pueden intensificarse con los años. Conocer la causa raíz ahora es la mejor forma de proteger su desarrollo emocional.';
+      desc='Prevención: el mejor momento para actuar';
+      cta='▶️ Entender qué le pasa y cómo prevenirlo →';
+    }
+
+    document.getElementById('result-badge').textContent=badge;
+    document.getElementById('result-title').textContent=title;
+    document.getElementById('result-sub').textContent=sub;
+    document.getElementById('score-desc').textContent=desc;
+    document.getElementById('cta-btn').textContent=cta;
+
+    const list=document.getElementById('symptoms-list');
+    for(const[key,val] of Object.entries(answers)){
+      if(val>=symptoms[key].threshold){
+        const item=document.createElement('div');
+        item.className='symptom-item';
+        item.innerHTML='<div class="symptom-dot"></div><span>'+symptoms[key].label+'</span>';
+        list.appendChild(item);
+      }
+    }
+    if(list.children.length===0) document.getElementById('symptoms-box').style.display='none';
+  }
+
+  function animateNumber(id,target,suffix){
+    const el=document.getElementById(id); let current=0;
+    const step=Math.ceil(target/40);
+    const interval=setInterval(()=>{
+      current=Math.min(current+step,target);
+      el.textContent=current+suffix;
+      if(current>=target)clearInterval(interval);
+    },30);
+  }
+</script>
+</body>
+</html>
